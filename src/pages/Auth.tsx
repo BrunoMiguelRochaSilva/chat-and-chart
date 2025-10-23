@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Wallet, TrendingUp, PieChart, Smartphone } from "lucide-react";
+import { Wallet, TrendingUp, PieChart, Smartphone, ArrowLeft } from "lucide-react";
 import { z } from "zod";
 
 const loginSchema = z.object({
@@ -66,6 +66,16 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen flex">
+      {/* Back button - Fixed position */}
+      <Button
+        variant="ghost"
+        className="fixed top-4 left-4 z-50 text-foreground hover:bg-background/80 backdrop-blur-sm"
+        onClick={() => navigate("/")}
+      >
+        <ArrowLeft className="h-4 w-4 mr-2" />
+        Back to Home
+      </Button>
+
       {/* Left side - Hero section */}
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary via-accent to-primary/80 p-12 flex-col justify-between text-white">
         <div>
