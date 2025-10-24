@@ -7,73 +7,56 @@ const Index = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
+      {/* Navigation Bar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <div className="flex items-center gap-2 text-foreground">
+              <Wallet className="h-8 w-8 text-primary" />
+              <span className="text-xl font-bold">TrackyFinance</span>
+            </div>
+            
+            {/* Navigation Links */}
+            <div className="hidden md:flex items-center gap-8">
+              <a href="#home" className="text-foreground hover:text-primary transition-colors">Início</a>
+              <a href="#features" className="text-foreground hover:text-primary transition-colors">Recursos</a>
+              <a href="#how-it-works" className="text-foreground hover:text-primary transition-colors">Como Funciona</a>
+              <a href="#pricing" className="text-foreground hover:text-primary transition-colors">Planos</a>
+            </div>
+            
+            {/* Login Button */}
+            <Button 
+              onClick={() => navigate("/auth")}
+              className="bg-primary text-white hover:bg-accent"
+            >
+              Entrar
+            </Button>
+          </div>
+        </div>
+      </nav>
+
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#FFA94D] via-[#FF8F3D] to-[#FF7F32] min-h-screen flex items-center">
-        {/* Animated wave background */}
-        <div className="absolute inset-0 opacity-20">
-          <svg className="absolute w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="wave" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
-                <path d="M0 50 Q 25 30, 50 50 T 100 50" fill="none" stroke="white" strokeWidth="0.5" opacity="0.3"/>
-                <path d="M0 70 Q 25 50, 50 70 T 100 70" fill="none" stroke="white" strokeWidth="0.5" opacity="0.2"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#wave)"/>
-          </svg>
-        </div>
-
-        {/* Logo - Top Left */}
-        <div className="absolute top-6 left-6 md:top-8 md:left-8 z-10 flex items-center gap-2 text-white">
-          <Wallet className="h-8 w-8" />
-          <span className="text-xl font-bold">TrackyFinance</span>
-        </div>
-
-        <div className="container relative mx-auto px-4 py-20">
+      <section id="home" className="relative pt-32 pb-20 md:pt-40 md:pb-32 bg-background overflow-hidden">
+        {/* Subtle background decoration */}
+        <div className="absolute top-20 right-0 w-1/3 h-1/3 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-accent/5 rounded-full blur-3xl" />
+        
+        <div className="container relative mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left content */}
-            <div className="text-white space-y-8 animate-fade-in">
+            <div className="space-y-8 animate-fade-in">
               <div className="space-y-6">
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight animate-fade-in">
-                  Track Your Expenses Automatically via WhatsApp
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-foreground">
+                  Gerencie suas finanças de forma{" "}
+                  <span className="text-primary">simples</span> e{" "}
+                  <span className="text-primary">inteligente</span>
                 </h1>
                 
-                <p className="text-lg md:text-xl text-white/90 max-w-2xl">
-                  Send a message or photo, and watch your expenses appear instantly on your dashboard.
+                <p className="text-lg md:text-xl text-muted-foreground max-w-xl">
+                  Organize suas receitas, despesas e tenha o controle total sobre suas finanças pelo WhatsApp.
                 </p>
-              </div>
-
-              {/* Feature highlights */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 py-4">
-                <div className="flex items-center gap-3 group">
-                  <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Smartphone className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-sm">WhatsApp</p>
-                    <p className="text-xs text-white/80">Integration</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-3 group">
-                  <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Camera className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-sm">Photo Receipt</p>
-                    <p className="text-xs text-white/80">Scanning</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-3 group">
-                  <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <BarChart3 className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-sm">Smart</p>
-                    <p className="text-xs text-white/80">Dashboard</p>
-                  </div>
-                </div>
               </div>
 
               {/* CTAs */}
@@ -81,20 +64,22 @@ const Index = () => {
                 <Button 
                   size="lg" 
                   onClick={() => navigate("/auth")}
-                  className="text-lg px-10 py-7 bg-white text-[#FFA94D] hover:bg-white/90 hover:text-[#FF7F32] shadow-2xl rounded-2xl font-semibold transition-all hover:scale-105"
+                  className="text-lg px-10 py-7 bg-primary text-white hover:bg-accent shadow-lg rounded-2xl font-semibold transition-all hover:scale-105"
                 >
-                  Get Started Free
+                  Testar Agora
                 </Button>
                 <Button 
                   size="lg"
-                  className="text-lg px-10 py-7 bg-transparent border-2 border-white text-white hover:bg-white/20 backdrop-blur-sm rounded-2xl font-semibold transition-all"
+                  variant="outline"
+                  onClick={() => navigate("/auth")}
+                  className="text-lg px-10 py-7 border-2 border-primary text-primary hover:bg-primary/5 rounded-2xl font-semibold transition-all"
                 >
-                  Watch Demo
+                  Ver Plano
                 </Button>
               </div>
 
-              <p className="text-white/80 text-sm">
-                🇧🇷 Made for Brazil • No credit card required
+              <p className="text-muted-foreground text-sm">
+                🇧🇷 Feito para o Brasil • Sem cartão de crédito
               </p>
             </div>
 
@@ -103,29 +88,86 @@ const Index = () => {
               <div className="relative z-10 hover:scale-105 transition-transform duration-500">
                 <img 
                   src={heroPhone} 
-                  alt="TrackyFinance smartphone app illustration" 
+                  alt="TrackyFinance app illustration" 
                   className="w-full h-auto drop-shadow-2xl"
                 />
               </div>
-              {/* Floating elements background glow */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent blur-3xl -z-10 rounded-full" />
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <ChevronDown className="h-8 w-8 text-white/60" />
+      {/* WhatsApp Demo Section */}
+      <section id="how-it-works" className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <p className="text-primary font-semibold mb-3 uppercase tracking-wide text-sm">Teste o Assistente</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
+              Veja como é fácil registrar transações pelo WhatsApp
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Experimente como é simples enviar uma mensagem e ter sua despesa registrada automaticamente.
+            </p>
+          </div>
+
+          {/* How it works steps */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mt-16">
+            <div className="text-center space-y-4">
+              <div className="w-16 h-16 rounded-full bg-primary/10 text-primary flex items-center justify-center text-2xl font-bold mx-auto">
+                1
+              </div>
+              <h3 className="text-xl font-bold text-foreground">Envie uma mensagem</h3>
+              <p className="text-muted-foreground">
+                Basta enviar uma mensagem para o assistente detalhando sua transação.
+              </p>
+            </div>
+
+            <div className="text-center space-y-4">
+              <div className="w-16 h-16 rounded-full bg-primary/10 text-primary flex items-center justify-center text-2xl font-bold mx-auto">
+                2
+              </div>
+              <h3 className="text-xl font-bold text-foreground">Processamento instantâneo</h3>
+              <p className="text-muted-foreground">
+                O sistema identifica automaticamente o tipo, valor e categoria.
+              </p>
+            </div>
+
+            <div className="text-center space-y-4">
+              <div className="w-16 h-16 rounded-full bg-primary/10 text-primary flex items-center justify-center text-2xl font-bold mx-auto">
+                3
+              </div>
+              <h3 className="text-xl font-bold text-foreground">Registro automático</h3>
+              <p className="text-muted-foreground">
+                A transação aparece no seu dashboard e relatórios instantaneamente.
+              </p>
+            </div>
+          </div>
+
+          <div className="text-center mt-12">
+            <p className="text-xl font-semibold text-foreground mb-6">
+              Esqueça as planilhas e aplicativos complicados!
+            </p>
+            <Button 
+              size="lg"
+              onClick={() => navigate("/auth")}
+              className="bg-primary text-white hover:bg-accent rounded-2xl px-8 py-6"
+            >
+              Começar Agora
+            </Button>
+          </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 bg-background">
+      {/* Dashboard Preview Section */}
+      <section id="features" className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Why Choose TrackyFinance?</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              The smartest way to manage your finances in Brazil
+            <p className="text-primary font-semibold mb-3 uppercase tracking-wide text-sm">Dashboard Interativo</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
+              Visualize suas finanças em um só lugar
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Experimente como é fácil monitorar suas receitas e despesas com análises detalhadas.
             </p>
           </div>
 
@@ -194,21 +236,20 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary via-accent to-primary">
+      <section className="py-20 bg-gradient-to-br from-primary/10 via-accent/5 to-primary/10">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Ready to Take Control of Your Finances?
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+            Pronto para ter controle total das suas finanças?
           </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Join thousands of Brazilians who are already tracking their expenses effortlessly.
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Junte-se a milhares de brasileiros que já estão gerenciando suas despesas sem esforço.
           </p>
           <Button 
-            variant="secondary" 
             size="lg"
             onClick={() => navigate("/auth")}
-            className="text-lg px-12 py-6 bg-white text-primary hover:bg-white/90 shadow-2xl"
+            className="text-lg px-12 py-7 bg-primary text-white hover:bg-accent shadow-xl rounded-2xl"
           >
-            Start Free Today
+            Começar Gratuitamente
           </Button>
         </div>
       </section>
@@ -220,8 +261,8 @@ const Index = () => {
             <Wallet className="h-6 w-6 text-primary" />
             <span className="text-lg font-semibold text-foreground">TrackyFinance</span>
           </div>
-          <p>© 2025 TrackyFinance. All rights reserved.</p>
-          <p className="mt-2">Made with ❤️ for Brazil 🇧🇷</p>
+          <p>© 2025 TrackyFinance. Todos os direitos reservados.</p>
+          <p className="mt-2">Feito com ❤️ para o Brasil 🇧🇷</p>
         </div>
       </footer>
     </div>
