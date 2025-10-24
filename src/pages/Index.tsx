@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Wallet, Smartphone, PieChart, TrendingUp, Zap, Shield } from "lucide-react";
+import { Wallet, Smartphone, PieChart, TrendingUp, Zap, Shield, Camera, BarChart3, ChevronDown } from "lucide-react";
+import heroPhone from "@/assets/hero-phone-illustration.png";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -8,46 +9,113 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary via-accent to-primary/80">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-30" />
-        
-        <div className="container relative mx-auto px-4 py-20 md:py-32">
-          <div className="flex flex-col items-center text-center text-white">
-            <div className="mb-8 flex items-center gap-3">
-              <Wallet className="h-16 w-16" />
-              <h1 className="text-5xl md:text-7xl font-bold">TrackyFinance</h1>
-            </div>
-            
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 max-w-4xl leading-tight">
-              Track Your Expenses Automatically via WhatsApp
-            </h2>
-            
-            <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl">
-              Simply send a message or photo, and watch your expenses appear instantly on your beautiful dashboard.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button 
-                variant="secondary" 
-                size="lg" 
-                onClick={() => navigate("/auth")}
-                className="text-lg px-8 py-6 bg-white text-primary hover:bg-white/90 shadow-2xl"
-              >
-                Get Started Free
-              </Button>
-              <Button 
-                variant="outline" 
-                size="lg"
-                className="text-lg px-8 py-6 border-2 border-white text-white hover:bg-white/10"
-              >
-                Watch Demo
-              </Button>
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#FFA94D] via-[#FF8F3D] to-[#FF7F32] min-h-screen flex items-center">
+        {/* Animated wave background */}
+        <div className="absolute inset-0 opacity-20">
+          <svg className="absolute w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="wave" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                <path d="M0 50 Q 25 30, 50 50 T 100 50" fill="none" stroke="white" strokeWidth="0.5" opacity="0.3"/>
+                <path d="M0 70 Q 25 50, 50 70 T 100 70" fill="none" stroke="white" strokeWidth="0.5" opacity="0.2"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#wave)"/>
+          </svg>
+        </div>
+
+        {/* Logo - Top Left */}
+        <div className="absolute top-6 left-6 md:top-8 md:left-8 z-10 flex items-center gap-2 text-white">
+          <Wallet className="h-8 w-8" />
+          <span className="text-xl font-bold">TrackyFinance</span>
+        </div>
+
+        <div className="container relative mx-auto px-4 py-20">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left content */}
+            <div className="text-white space-y-8 animate-fade-in">
+              <div className="space-y-6">
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight animate-fade-in">
+                  Track Your Expenses Automatically via WhatsApp
+                </h1>
+                
+                <p className="text-lg md:text-xl text-white/90 max-w-2xl">
+                  Send a message or photo, and watch your expenses appear instantly on your dashboard.
+                </p>
+              </div>
+
+              {/* Feature highlights */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 py-4">
+                <div className="flex items-center gap-3 group">
+                  <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Smartphone className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-sm">WhatsApp</p>
+                    <p className="text-xs text-white/80">Integration</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-3 group">
+                  <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Camera className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-sm">Photo Receipt</p>
+                    <p className="text-xs text-white/80">Scanning</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-3 group">
+                  <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <BarChart3 className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-sm">Smart</p>
+                    <p className="text-xs text-white/80">Dashboard</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* CTAs */}
+              <div className="flex flex-col sm:flex-row gap-4 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                <Button 
+                  size="lg" 
+                  onClick={() => navigate("/auth")}
+                  className="text-lg px-10 py-7 bg-white text-[#FFA94D] hover:bg-white/90 hover:text-[#FF7F32] shadow-2xl rounded-2xl font-semibold transition-all hover:scale-105"
+                >
+                  Get Started Free
+                </Button>
+                <Button 
+                  size="lg"
+                  className="text-lg px-10 py-7 bg-transparent border-2 border-white text-white hover:bg-white/20 backdrop-blur-sm rounded-2xl font-semibold transition-all"
+                >
+                  Watch Demo
+                </Button>
+              </div>
+
+              <p className="text-white/80 text-sm">
+                🇧🇷 Made for Brazil • No credit card required
+              </p>
             </div>
 
-            <p className="mt-6 text-white/70">
-              🇧🇷 Made for Brazil • No credit card required
-            </p>
+            {/* Right illustration */}
+            <div className="relative hidden lg:block animate-fade-in" style={{ animationDelay: '0.3s' }}>
+              <div className="relative z-10 hover:scale-105 transition-transform duration-500">
+                <img 
+                  src={heroPhone} 
+                  alt="TrackyFinance smartphone app illustration" 
+                  className="w-full h-auto drop-shadow-2xl"
+                />
+              </div>
+              {/* Floating elements background glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent blur-3xl -z-10 rounded-full" />
+            </div>
           </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <ChevronDown className="h-8 w-8 text-white/60" />
         </div>
       </section>
 
