@@ -66,14 +66,14 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen flex">
-      {/* Back button - Fixed position */}
+      {/* Back button - Fixed position with better mobile touch target */}
       <Button
         variant="ghost"
-        className="fixed top-4 left-4 z-50 text-foreground hover:bg-background/80 backdrop-blur-sm"
+        className="fixed top-3 left-3 md:top-4 md:left-4 z-50 text-foreground hover:bg-background/80 backdrop-blur-sm min-h-[44px] min-w-[44px] px-3 md:px-4"
         onClick={() => navigate("/")}
       >
-        <ArrowLeft className="h-4 w-4 mr-2" />
-        Back to Home
+        <ArrowLeft className="h-5 w-5 md:h-4 md:w-4 md:mr-2" />
+        <span className="hidden md:inline">Back to Home</span>
       </Button>
 
       {/* Left side - Hero section */}
@@ -128,25 +128,25 @@ const Auth = () => {
       </div>
 
       {/* Right side - Auth form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-gradient-to-br from-background to-secondary/30">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-6 md:p-8 bg-gradient-to-br from-background to-secondary/30">
         <Card className="w-full max-w-md border-0 shadow-2xl">
-          <CardHeader className="space-y-1">
+          <CardHeader className="space-y-1 px-4 sm:px-6 pt-8 sm:pt-6">
             <div className="flex items-center gap-2 lg:hidden mb-4">
               <Wallet className="h-8 w-8 text-primary" />
               <span className="text-2xl font-bold">TrackyFinance</span>
             </div>
-            <CardTitle className="text-3xl font-bold">
+            <CardTitle className="text-2xl sm:text-3xl font-bold">
               {isLogin ? "Welcome back" : "Create account"}
             </CardTitle>
-            <CardDescription className="text-base">
+            <CardDescription className="text-sm sm:text-base">
               {isLogin 
                 ? "Enter your credentials to access your dashboard" 
                 : "Start tracking your expenses automatically"}
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-4 sm:px-6 pb-6">
             <Tabs value={isLogin ? "login" : "signup"} className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-6">
+              <TabsList className="grid w-full grid-cols-2 mb-6 h-11 sm:h-10">
                 <TabsTrigger value="login" onClick={() => { setIsLogin(true); setErrors({}); }}>
                   Login
                 </TabsTrigger>
@@ -158,30 +158,30 @@ const Auth = () => {
               <TabsContent value="login">
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email" className="text-sm sm:text-base">Email</Label>
                     <Input
                       id="email"
                       type="email"
                       placeholder="your@email.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className={errors.email ? "border-destructive" : ""}
+                      className={`h-11 sm:h-10 text-base ${errors.email ? "border-destructive" : ""}`}
                     />
                     {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password" className="text-sm sm:text-base">Password</Label>
                     <Input
                       id="password"
                       type="password"
                       placeholder="••••••••"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className={errors.password ? "border-destructive" : ""}
+                      className={`h-11 sm:h-10 text-base ${errors.password ? "border-destructive" : ""}`}
                     />
                     {errors.password && <p className="text-sm text-destructive">{errors.password}</p>}
                   </div>
-                  <Button type="submit" variant="hero" size="lg" className="w-full">
+                  <Button type="submit" className="w-full h-12 sm:h-11 text-base bg-primary text-white hover:bg-accent">
                     Sign In
                   </Button>
                 </form>
@@ -190,42 +190,42 @@ const Auth = () => {
               <TabsContent value="signup">
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="name">Full Name</Label>
+                    <Label htmlFor="name" className="text-sm sm:text-base">Full Name</Label>
                     <Input
                       id="name"
                       type="text"
                       placeholder="John Doe"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className={errors.name ? "border-destructive" : ""}
+                      className={`h-11 sm:h-10 text-base ${errors.name ? "border-destructive" : ""}`}
                     />
                     {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="signup-email">Email</Label>
+                    <Label htmlFor="signup-email" className="text-sm sm:text-base">Email</Label>
                     <Input
                       id="signup-email"
                       type="email"
                       placeholder="your@email.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className={errors.email ? "border-destructive" : ""}
+                      className={`h-11 sm:h-10 text-base ${errors.email ? "border-destructive" : ""}`}
                     />
                     {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="signup-password">Password</Label>
+                    <Label htmlFor="signup-password" className="text-sm sm:text-base">Password</Label>
                     <Input
                       id="signup-password"
                       type="password"
                       placeholder="••••••••"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className={errors.password ? "border-destructive" : ""}
+                      className={`h-11 sm:h-10 text-base ${errors.password ? "border-destructive" : ""}`}
                     />
                     {errors.password && <p className="text-sm text-destructive">{errors.password}</p>}
                   </div>
-                  <Button type="submit" variant="hero" size="lg" className="w-full">
+                  <Button type="submit" className="w-full h-12 sm:h-11 text-base bg-primary text-white hover:bg-accent">
                     Create Account
                   </Button>
                 </form>
