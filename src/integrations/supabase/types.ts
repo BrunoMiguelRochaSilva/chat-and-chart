@@ -57,6 +57,7 @@ export type Database = {
           source: string | null
           updated_at: string
           user_id: string
+          whatsapp_message_id: string | null
         }
         Insert: {
           amount: number
@@ -70,6 +71,7 @@ export type Database = {
           source?: string | null
           updated_at?: string
           user_id: string
+          whatsapp_message_id?: string | null
         }
         Update: {
           amount?: number
@@ -83,6 +85,7 @@ export type Database = {
           source?: string | null
           updated_at?: string
           user_id?: string
+          whatsapp_message_id?: string | null
         }
         Relationships: [
           {
@@ -103,7 +106,11 @@ export type Database = {
           id: string
           monthly_budget: number | null
           name: string
+          phone_number: string | null
+          phone_verified: boolean | null
           updated_at: string
+          verification_code: string | null
+          verification_code_expires_at: string | null
           whatsapp_connected: boolean | null
           whatsapp_number: string | null
         }
@@ -115,7 +122,11 @@ export type Database = {
           id: string
           monthly_budget?: number | null
           name: string
+          phone_number?: string | null
+          phone_verified?: boolean | null
           updated_at?: string
+          verification_code?: string | null
+          verification_code_expires_at?: string | null
           whatsapp_connected?: boolean | null
           whatsapp_number?: string | null
         }
@@ -127,7 +138,11 @@ export type Database = {
           id?: string
           monthly_budget?: number | null
           name?: string
+          phone_number?: string | null
+          phone_verified?: boolean | null
           updated_at?: string
+          verification_code?: string | null
+          verification_code_expires_at?: string | null
           whatsapp_connected?: boolean | null
           whatsapp_number?: string | null
         }
