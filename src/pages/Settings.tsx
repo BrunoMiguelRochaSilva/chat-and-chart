@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
+import { WhatsAppVerification } from "@/components/WhatsAppVerification";
 
 const Settings = () => {
   const { user, signOut } = useAuth();
@@ -17,6 +18,8 @@ const Settings = () => {
     name: "",
     email: "",
     monthly_budget: "",
+    phone_number: "",
+    phone_verified: false,
   });
 
   useEffect(() => {
@@ -41,6 +44,8 @@ const Settings = () => {
         name: data.name || "",
         email: data.email || "",
         monthly_budget: data.monthly_budget?.toString() || "",
+        phone_number: data.phone_number || "",
+        phone_verified: data.phone_verified || false,
       });
     } catch (error) {
       console.error("Error fetching profile:", error);
@@ -126,22 +131,12 @@ const Settings = () => {
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-lg">
-            <CardHeader>
-              <CardTitle>WhatsApp Integration</CardTitle>
-              <CardDescription>Connect your WhatsApp for automatic expense tracking</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="rounded-lg border-2 border-dashed border-primary/20 p-6 text-center">
-                <p className="text-muted-foreground mb-4">
-                  WhatsApp integration requires WhatsApp Business API configuration.
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  Contact support to enable this feature for your account.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+          <WhatsAppVerification
+            userId={user?.id || ""}
+            currentPhone={profile.phone_number}
+            isVerified={profile.phone_verified}
+            onVerified={fetchProfile}
+          />
 
           <Card className="border-0 shadow-lg border-destructive/20">
             <CardHeader>
