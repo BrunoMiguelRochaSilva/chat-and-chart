@@ -5,7 +5,21 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Smartphone, Check } from "lucide-react";
+
+const COUNTRIES = [
+  { code: "+55", name: "Brasil", flag: "🇧🇷" },
+  { code: "+1", name: "Estados Unidos", flag: "🇺🇸" },
+  { code: "+351", name: "Portugal", flag: "🇵🇹" },
+  { code: "+34", name: "Espanha", flag: "🇪🇸" },
+  { code: "+33", name: "França", flag: "🇫🇷" },
+  { code: "+44", name: "Reino Unido", flag: "🇬🇧" },
+  { code: "+49", name: "Alemanha", flag: "🇩🇪" },
+  { code: "+39", name: "Itália", flag: "🇮🇹" },
+  { code: "+54", name: "Argentina", flag: "🇦🇷" },
+  { code: "+52", name: "México", flag: "🇲🇽" },
+];
 
 interface WhatsAppVerificationProps {
   userId: string;
@@ -15,6 +29,7 @@ interface WhatsAppVerificationProps {
 }
 
 export const WhatsAppVerification = ({ userId, currentPhone, isVerified, onVerified }: WhatsAppVerificationProps) => {
+  const [countryCode, setCountryCode] = useState("+55");
   const [phoneNumber, setPhoneNumber] = useState(currentPhone || "");
   const [verificationCode, setVerificationCode] = useState("");
   const [codeSent, setCodeSent] = useState(false);
@@ -33,11 +48,9 @@ export const WhatsAppVerification = ({ userId, currentPhone, isVerified, onVerif
 
     setLoading(true);
     try {
-      // Format phone number (remove spaces and special chars, add country code if needed)
+      // Format phone number (remove spaces and special chars, add country code)
       let formattedPhone = phoneNumber.replace(/\D/g, '');
-      if (!formattedPhone.startsWith('55')) {
-        formattedPhone = '55' + formattedPhone;
-      }
+      formattedPhone = countryCode.replace('+', '') + formattedPhone;
 
       const { data, error } = await supabase.functions.invoke('verify-phone', {
         body: {
@@ -150,14 +163,29 @@ export const WhatsAppVerification = ({ userId, currentPhone, isVerified, onVerif
           <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="phone">Número de WhatsApp (com DDD)</Label>
-              <Input
-                id="phone"
-                type="tel"
-                placeholder="(11) 99999-9999"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                disabled={loading}
-              />
+              <div className="flex gap-2">
+                <Select value={countryCode} onValueChange={setCountryCode}>
+                  <SelectTrigger className="w-[140px]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {COUNTRIES.map((country) => (
+                      <SelectItem key={country.code} value={country.code}>
+                        {country.flag} {country.code}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Input
+                  id="phone"
+                  type="tel"
+                  placeholder="(11) 99999-9999"
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  disabled={loading}
+                  className="flex-1"
+                />
+              </div>
             </div>
             <Button 
               onClick={handleSendCode} 
