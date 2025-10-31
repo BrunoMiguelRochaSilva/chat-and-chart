@@ -261,6 +261,28 @@ const Index = () => {
             <Wallet className="h-6 w-6 text-primary" />
             <span className="text-lg font-semibold text-foreground">TrackyFinance</span>
           </div>
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mb-4 text-sm">
+            <button 
+              onClick={() => navigate("/terms")}
+              className="hover:text-primary transition-colors"
+            >
+              Termos de Serviço
+            </button>
+            <span className="hidden sm:inline text-muted-foreground/50">•</span>
+            <button 
+              onClick={() => navigate("/privacy")}
+              className="hover:text-primary transition-colors"
+            >
+              Política de Privacidade
+            </button>
+            <span className="hidden sm:inline text-muted-foreground/50">•</span>
+            <button 
+              onClick={() => navigate("/data-deletion")}
+              className="hover:text-primary transition-colors"
+            >
+              Exclusão de Dados
+            </button>
+          </div>
           <p>© 2025 TrackyFinance. Todos os direitos reservados.</p>
           <p className="mt-2">Feito com ❤️ para o Brasil 🇧🇷</p>
         </div>
