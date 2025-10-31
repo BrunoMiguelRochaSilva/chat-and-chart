@@ -44,7 +44,10 @@ serve(async (req) => {
       // Send WhatsApp message with code
       const message = `🔐 Seu código de verificação TrackyFinance é: *${verificationCode}*\n\nEste código expira em 10 minutos.`;
       
-      await fetch(`https://graph.facebook.com/v17.0/${WHATSAPP_PHONE_NUMBER_ID}/messages`, {
+      console.log('Enviando mensagem WhatsApp para:', phone_number);
+      console.log('Phone Number ID:', WHATSAPP_PHONE_NUMBER_ID);
+      
+      const whatsappResponse = await fetch(`https://graph.facebook.com/v17.0/${WHATSAPP_PHONE_NUMBER_ID}/messages`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${WHATSAPP_ACCESS_TOKEN}`,
@@ -57,6 +60,14 @@ serve(async (req) => {
           text: { body: message },
         }),
       });
+
+      const whatsappData = await whatsappResponse.json();
+      console.log('Resposta WhatsApp API:', JSON.stringify(whatsappData));
+
+      if (!whatsappResponse.ok) {
+        console.error('Erro ao enviar WhatsApp:', whatsappData);
+        throw new Error(`Falha ao enviar WhatsApp: ${JSON.stringify(whatsappData)}`);
+      }
 
       return new Response(
         JSON.stringify({ success: true, message: 'Código enviado!' }),
