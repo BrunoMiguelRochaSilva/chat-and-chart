@@ -6,7 +6,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Smartphone, Check } from "lucide-react";
+import { Smartphone, Check, LogOut } from "lucide-react";
 
 const COUNTRIES = [
   { code: "+55", name: "Brasil", flag: "🇧🇷" },
@@ -139,6 +139,43 @@ export const WhatsAppVerification = ({ userId, currentPhone, isVerified, onVerif
     }
   };
 
+  const handleDisconnect = async () => {
+    setLoading(true);
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .update({
+          phone_verified: false,
+          whatsapp_connected: false,
+          phone_number: null,
+          verification_code: null,
+          verification_code_expires_at: null,
+        })
+        .eq('id', userId);
+
+      if (error) throw error;
+
+      toast({
+        title: "WhatsApp desconectado",
+        description: "Você pode conectar novamente a qualquer momento",
+      });
+      
+      setPhoneNumber("");
+      setVerificationCode("");
+      setCodeSent(false);
+      onVerified();
+    } catch (error) {
+      console.error('Error disconnecting:', error);
+      toast({
+        title: "Erro ao desconectar",
+        description: "Tente novamente mais tarde",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (isVerified) {
     return (
       <Card>
@@ -151,10 +188,19 @@ export const WhatsAppVerification = ({ userId, currentPhone, isVerified, onVerif
             Número verificado: {currentPhone}
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-4">
           <p className="text-sm text-muted-foreground">
             Envie mensagens para o nosso WhatsApp com seus gastos e eles aparecerão automaticamente no seu dashboard! 💬
           </p>
+          <Button 
+            onClick={handleDisconnect}
+            disabled={loading}
+            variant="destructive"
+            className="w-full"
+          >
+            <LogOut className="h-4 w-4 mr-2" />
+            {loading ? "Desconectando..." : "Desconectar WhatsApp"}
+          </Button>
         </CardContent>
       </Card>
     );
