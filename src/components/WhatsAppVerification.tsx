@@ -37,10 +37,13 @@ export const WhatsAppVerification = ({ userId, currentPhone, isVerified, onVerif
   const { toast } = useToast();
 
   const handleSendCode = async () => {
-    if (!phoneNumber || phoneNumber.length < 10) {
+    // Remove non-digit characters for validation
+    const digitsOnly = phoneNumber.replace(/\D/g, '');
+    
+    if (!phoneNumber || digitsOnly.length < 8) {
       toast({
         title: "Número inválido",
-        description: "Digite um número de telefone válido com DDD",
+        description: "Digite um número de telefone válido",
         variant: "destructive",
       });
       return;
