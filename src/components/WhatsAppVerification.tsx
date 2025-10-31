@@ -29,12 +29,22 @@ interface WhatsAppVerificationProps {
 }
 
 export const WhatsAppVerification = ({ userId, currentPhone, isVerified, onVerified }: WhatsAppVerificationProps) => {
-  const [countryCode, setCountryCode] = useState("+55");
+  const [countryCode, setCountryCode] = useState("+351");
   const [phoneNumber, setPhoneNumber] = useState(currentPhone || "");
   const [verificationCode, setVerificationCode] = useState("");
   const [codeSent, setCodeSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+
+  const getPlaceholder = () => {
+    switch (countryCode) {
+      case "+351": return "912345678";
+      case "+55": return "(11) 99999-9999";
+      case "+1": return "(555) 123-4567";
+      case "+34": return "612345678";
+      default: return "123456789";
+    }
+  };
 
   const handleSendCode = async () => {
     // Remove non-digit characters for validation
@@ -165,7 +175,7 @@ export const WhatsAppVerification = ({ userId, currentPhone, isVerified, onVerif
         {!codeSent ? (
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="phone">Número de WhatsApp (com DDD)</Label>
+              <Label htmlFor="phone">Número de WhatsApp</Label>
               <div className="flex gap-2">
                 <Select value={countryCode} onValueChange={setCountryCode}>
                   <SelectTrigger className="w-[140px]">
@@ -182,13 +192,16 @@ export const WhatsAppVerification = ({ userId, currentPhone, isVerified, onVerif
                 <Input
                   id="phone"
                   type="tel"
-                  placeholder="(11) 99999-9999"
+                  placeholder={getPlaceholder()}
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
                   disabled={loading}
                   className="flex-1"
                 />
               </div>
+              <p className="text-xs text-muted-foreground">
+                Digite apenas o número (sem o código do país)
+              </p>
             </div>
             <Button 
               onClick={handleSendCode} 
